@@ -19,7 +19,14 @@ func NewRouter(db *sql.DB) *chi.Mux {
 		r.Use(middleware.JsonResponse())
 		r.Route("/events", func(r chi.Router) {
 			r.Get("/", handleEvent.All)
-			r.Get("/{id}", handleEvent.Get)
+
+			r.Route("/{id}", func(r chi.Router) {
+				r.Get("/", handleEvent.Get)
+
+				r.Get("/plan", handleItinerary.Get)
+				r.Get("/location", handleLocation.Get)
+			})
+
 		})
 		r.Post("/bookings", handleOrder.Create)
 
