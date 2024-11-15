@@ -6,6 +6,10 @@ type ItineraryService struct {
 	ItineraryRepo repository.Itinerary
 }
 
-func InitItineraryService(repo repository.Itinerary) ItineraryService {
-	return ItineraryService{ItineraryRepo: repo}
+func InitItineraryService(repo repository.Itinerary) *ItineraryService {
+	return &ItineraryService{ItineraryRepo: repo}
+}
+
+func (service *ItineraryService) Get() {
+
 }

@@ -14,6 +14,8 @@ func NewRouter(db *sql.DB) *chi.Mux {
 
 	handleEvent := handler.InitEventHandler(*service.InitEventService(*repository.InitEventRepo(db)))
 	handleOrder := handler.InitOrderHandler(*service.InitOrderService(*repository.InitOrderRepo(db)))
+	handleLocation := handler.InitLocationHandler(*service.InitLocationService(*repository.InitLocationRepo(db)))
+	handleItinerary := handler.InitItineraryHandler(*service.InitItineraryService(*repository.InitItineraryRepo(db)))
 
 	r.Route("/api", func(r chi.Router) {
 		r.Use(middleware.JsonResponse())

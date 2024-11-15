@@ -6,6 +6,6 @@ type LocationService struct {
 	LocationRepo repository.Location
 }
 
-func InitLocationService(repo repository.Location) LocationService {
-	return LocationService{LocationRepo: repo}
+func InitLocationService(repo repository.Location) *LocationService {
+	return &LocationService{LocationRepo: repo}
 }
