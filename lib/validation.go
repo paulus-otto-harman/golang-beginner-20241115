@@ -31,18 +31,8 @@ func Validate(input interface{}) interface{} {
 		validationErrors, ok := err.(validator.ValidationErrors)
 		if ok {
 			for _, inputError := range validationErrors {
-				fieldError := Error{
-					Field: inputError.Field(),
-					Tag:   inputError.Tag(),
-					Value: inputError.Value(),
-					Param: inputError.Param(),
-				}
-
-				if fieldError.Tag == "eqfield" {
-					if param, validationHasParam := reflect.TypeOf(input).FieldByName(fieldError.Param); validationHasParam {
-						fieldError.Param = param.Tag.Get("json")
-					}
-				}
+				fieldError := initError(inputError)
+				fieldError.ShouldHaveJsonParam(input)
 				errorBags = append(errorBags, fieldError)
 			}
 			return errorBags
@@ -50,4 +40,22 @@ func Validate(input interface{}) interface{} {
 		return errors.New(fmt.Sprintf("validation error %v", err))
 	}
 	return nil
+}
+
+func (err *Error) ShouldHaveJsonParam(input interface{}) *Error {
+	if err.Tag == "eqfield" {
+		if param, validationHasParam := reflect.TypeOf(input).FieldByName(err.Param); validationHasParam {
+			err.Param = param.Tag.Get("json")
+		}
+	}
+	return err
+}
+
+func initError(inputError validator.FieldError) Error {
+	return Error{
+		Field: inputError.Field(),
+		Tag:   inputError.Tag(),
+		Value: inputError.Value(),
+		Param: inputError.Param(),
+	}
 }
