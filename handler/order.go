@@ -5,6 +5,7 @@ import (
 	"20241115/model"
 	"20241115/service"
 	"encoding/json"
+	gola "github.com/paulus-otto-harman/golang-module/validation"
 	"net/http"
 )
 
@@ -23,7 +24,7 @@ func (handler OrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := lib.Validate(booking); err != nil {
+	if err := gola.Validate(booking); err != nil {
 		lib.JsonResponse(w).ValidationFail(err)
 		return
 	}
