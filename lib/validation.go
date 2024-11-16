@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-playground/validator/v10"
+	"reflect"
+	"strings"
 )
 
 type Error struct {
@@ -14,19 +16,34 @@ type Error struct {
 }
 
 func Validate(input interface{}) interface{} {
-	err := validator.New().Struct(input)
+	validate := validator.New()
+	validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
+		name := strings.SplitN(fld.Tag.Get("json"), ",", 2)[0]
+		if name == "-" {
+			return ""
+		}
+		return name
+	})
+	err := validate.Struct(input)
 
 	if err != nil {
 		var errorBags []Error
 		validationErrors, ok := err.(validator.ValidationErrors)
 		if ok {
 			for _, inputError := range validationErrors {
-				errorBags = append(errorBags, Error{
+				fieldError := Error{
 					Field: inputError.Field(),
 					Tag:   inputError.Tag(),
 					Value: inputError.Value(),
 					Param: inputError.Param(),
-				})
+				}
+
+				if fieldError.Tag == "eqfield" {
+					if param, validationHasParam := reflect.TypeOf(input).FieldByName(fieldError.Param); validationHasParam {
+						fieldError.Param = param.Tag.Get("json")
+					}
+				}
+				errorBags = append(errorBags, fieldError)
 			}
 			return errorBags
 		}
