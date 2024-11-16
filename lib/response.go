@@ -47,3 +47,16 @@ func (response Response) Success(statusCode int, message string, data interface{
 
 	json.NewEncoder(response.W).Encode(r)
 }
+
+func (response Response) ValidationFail(data interface{}) {
+	statusCode := http.StatusUnprocessableEntity
+	message := "Invalid input, please check errors"
+	r := model.Response{
+		Success:    false,
+		StatusCode: &statusCode,
+		Message:    &message,
+		Data:       data,
+	}
+
+	json.NewEncoder(response.W).Encode(r)
+}

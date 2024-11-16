@@ -5,8 +5,6 @@ import (
 	"20241115/model"
 	"20241115/service"
 	"encoding/json"
-	"fmt"
-	"github.com/go-playground/validator/v10"
 	"net/http"
 )
 
@@ -24,25 +22,9 @@ func (handler OrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Invalid input", nil)
 		return
 	}
-	err := validator.New().Struct(booking)
-
+	err := lib.Validate(booking)
 	if err != nil {
-		errorBags := map[string]string{}
-		if errors, ok := err.(validator.ValidationErrors); ok {
-			lib.JsonResponse(w).Fail(http.StatusUnprocessableEntity, "Validation Failed", errors)
-			return
-		}
-		if _, ok := err.(validator.ValidationErrors); ok {
-			for _, validationErr := range err.(validator.ValidationErrors) {
-				errorBags[validationErr.Field()] = fmt.Sprintf("Error: Field '%s' failed validation with tag '%s'.\n", validationErr.Field(), validationErr.Tag())
-				fmt.Printf("Error: Field '%s' failed validation with tag '%s'.\n", validationErr.Field(), validationErr.Tag())
-				fmt.Printf("  Value: '%v'\n", validationErr.Value())
-				fmt.Printf("  Condition: '%s'\n", validationErr.Param())
-			}
-		} else {
-			fmt.Println("Validation failed:", err)
-		}
-		lib.JsonResponse(w).Fail(http.StatusUnprocessableEntity, "Validation Failed", errorBags)
+		lib.JsonResponse(w).ValidationFail(err)
 		return
 	}
 
