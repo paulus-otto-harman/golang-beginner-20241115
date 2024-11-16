@@ -1,31 +1,33 @@
 package app
 
-import "github.com/spf13/viper"
+import (
+	"github.com/spf13/viper"
+	"log"
+)
 
 type Config struct {
-	AppName  string
+	AppName  string `mapstructure:"app_name"`
 	Port     string
-	Database DatabaseConfig
+	Database DatabaseConfig `mapstructure:",squash"`
 }
 
 type DatabaseConfig struct {
-	Name     string
-	Username string
-	Password string
-	Host     string
+	Name     string `mapstructure:"database_name"`
+	Username string `mapstructure:"database_username"`
+	Password string `mapstructure:"database_password"`
+	Host     string `mapstructure:"database_host"`
 }
 
 func LoadConfiguration() (Config, error) {
-	viper.AutomaticEnv()
+	viper.SetConfigName(".env")
+	viper.SetConfigType("env")
+	viper.AddConfigPath(".")
+	if err := viper.ReadInConfig(); err != nil {
+		log.Printf("Error reading configuration file : %s\n", err)
+		return Config{}, nil
+	}
 
-	return Config{
-		AppName: viper.GetString("APP_NAME"),
-		Port:    viper.GetString("PORT"),
-		Database: DatabaseConfig{
-			Name:     viper.GetString("DATABES_NAME"),
-			Username: viper.GetString("DATABASE_USERNAME"),
-			Password: viper.GetString("DATABASE_PASSWORD"),
-			Host:     viper.GetString("DATABASE_HOST"),
-		},
-	}, nil
+	config := Config{}
+	viper.Unmarshal(&config)
+	return config, nil
 }

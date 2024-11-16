@@ -14,7 +14,7 @@ func main() {
 
 	db := database.DbOpen(config.Database)
 	defer db.Close()
-	
+
 	r := router.NewRouter(db)
 
 	log.Println(fmt.Sprintf("Server started on port %s", config.Port))
