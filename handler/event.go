@@ -24,25 +24,20 @@ func (handler EventHandler) All(w http.ResponseWriter, r *http.Request) {
 
 	page := 1
 	var err error
-	if q := r.URL.Query().Get("page"); q != "" {
-		page, err = strconv.Atoi(q)
+	if p := r.URL.Query().Get("page"); p != "" {
+		page, err = strconv.Atoi(p)
 	}
 
 	if err != nil {
-		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Invalid Page", nil)
+		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Invalid Page")
 		return
 	}
 
 	sort := r.URL.Query().Get("sort")
 
-	if err != nil {
-		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Invalid Limit", nil)
-
-	}
-
 	totalItems, totalPages, items, err := handler.EventService.All(date, page, sort)
 	if err != nil {
-		lib.JsonResponse(w).Fail(0, err.Error(), nil)
+		lib.JsonResponse(w).Fail(0, err.Error())
 		return
 	}
 
@@ -59,7 +54,7 @@ func (handler EventHandler) All(w http.ResponseWriter, r *http.Request) {
 func (handler EventHandler) Get(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
-		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Invalid Destination ID", nil)
+		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Invalid Destination ID")
 		return
 	}
 
@@ -67,7 +62,7 @@ func (handler EventHandler) Get(w http.ResponseWriter, r *http.Request) {
 	err = handler.EventService.Get(&event)
 	if err != nil {
 		log.Println(err)
-		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Failed to retrieve Event", nil)
+		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Failed to retrieve Event")
 		return
 	}
 	lib.JsonResponse(w).Success(http.StatusOK, "Event Found", event)

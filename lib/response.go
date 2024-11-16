@@ -14,7 +14,7 @@ type Response struct {
 	W http.ResponseWriter
 }
 
-func (response Response) Fail(statusCode int, message string, data interface{}) {
+func (response Response) Fail(statusCode int, message string, data ...interface{}) {
 	r := model.Response{
 		Success:    false,
 		StatusCode: &statusCode,

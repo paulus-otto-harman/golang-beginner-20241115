@@ -19,7 +19,7 @@ func InitLocationHandler(locationService service.LocationService) *LocationHandl
 func (handler *LocationHandler) Get(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
-		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Invalid Destination ID", nil)
+		lib.JsonResponse(w).Fail(http.StatusBadRequest, "Invalid Destination ID")
 		return
 	}
 
