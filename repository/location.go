@@ -14,8 +14,7 @@ func InitLocationRepo(db *sql.DB) *Location {
 }
 
 func (repo *Location) Get(eventId int) (*model.Location, error) {
-	query := `
-				SELECT header, map_url, description
+	query := `SELECT header, map_url, description
 				    FROM locations
 				JOIN events ON locations.destination_id = events.destination_id
 				WHERE events.id = $1

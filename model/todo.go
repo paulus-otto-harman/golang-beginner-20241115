@@ -1,5 +1,5 @@
 package model
 
 type Todo struct {
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 }

@@ -1,6 +1,7 @@
 package model
 
 type Itinerary struct {
+	Id          int    `json:"-"`
 	Day         int    `json:"day"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
