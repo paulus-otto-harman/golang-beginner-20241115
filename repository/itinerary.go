@@ -3,7 +3,6 @@ package repository
 import (
 	"20241115/model"
 	"database/sql"
-	"log"
 	"strings"
 )
 
@@ -33,7 +32,6 @@ func (repo *Itinerary) Get(eventId int) ([]model.Itinerary, error) {
 
 	rows, err := repo.Db.Query(query, eventId, TodoListSeparator)
 	if err != nil {
-		log.Println(err)
 		return nil, err
 	}
 

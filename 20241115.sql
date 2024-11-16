@@ -136,7 +136,7 @@ CREATE TABLE public.itineraries (
     destination_id smallint NOT NULL,
     day smallint NOT NULL,
     title character varying(25) NOT NULL,
-    description character varying(255) NOT NULL
+    description character varying(512)
 );
 
 
@@ -485,6 +485,9 @@ COPY public.gallery (id, image_url, description, destination_id) FROM stdin;
 --
 
 COPY public.itineraries (id, destination_id, day, title, description) FROM stdin;
+1	5	1	Curabitur blandit.	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+2	5	2	Vivamus sagittis.	Sed porttitor lectus nibh. Donec sollicitudin molestie malesuada. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat.
+3	5	3	Aenean euismod.	Nulla porttitor accumsan tincidunt. Proin eget tortor risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec sollicitudin molestie malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
 \.
 
 
@@ -493,6 +496,26 @@ COPY public.itineraries (id, destination_id, day, title, description) FROM stdin
 --
 
 COPY public.locations (id, destination_id, header, map_url, description) FROM stdin;
+1	1	Lorem ipsum dolor sit amet, consectetur adipiscing elit.	https://www.google.com/maps/place/Fake+Location/@12.345678,98.7654321,17z	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+2	2	Proin faucibus arcu quis ante.	https://www.google.com/maps/place/Fake+Location/@34.567890,65.432198,16z	Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+3	3	Donec sollicitudin molestie malesuada.	https://www.google.com/maps/place/Fake+Location/@45.123456,75.654321,15z	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod.
+4	4	Vestibulum ante ipsum primis in faucibus.	https://www.google.com/maps/place/Fake+Location/@23.456789,54.321098,14z	Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Maecenas faucibus mollis interdum. Aenean lacinia bibendum nulla sed consectetur.
+5	5	Mauris blandit aliquet elit.	https://www.google.com/maps/place/Fake+Location/@67.890123,12.345678,18z	Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam quis risus eget urna mollis ornare vel eu leo. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nulla vitae elit libero, a pharetra augue.
+6	6	Sed porttitor lectus nibh.	https://www.google.com/maps/place/Fake+Location/@89.012345,23.456789,13z	Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus varius blandit sit amet non magna.
+7	7	Cras ultricies ligula sed magna dictum porta.	https://www.google.com/maps/place/Fake+Location/@11.223344,44.556677,12z	Sed posuere consectetur est at lobortis. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.
+8	8	Curabitur aliquet quam id dui posuere blandit.	https://www.google.com/maps/place/Fake+Location/@33.445566,77.889900,19z	Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie malesuada. Donec rutrum congue leo eget malesuada.
+9	9	Nulla porttitor accumsan tincidunt.	https://www.google.com/maps/place/Fake+Location/@66.778899,55.443322,17z	Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus suscipit tortor eget felis porttitor volutpat. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Pellentesque in ipsum id orci porta dapibus.
+10	10	Pellentesque in ipsum id orci porta dapibus.	https://www.google.com/maps/place/Fake+Location/@44.332211,88.776655,20z	Donec sollicitudin molestie malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur aliquet quam id dui posuere blandit. Nulla porttitor accumsan tincidunt. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
+11	11	Quisque velit nisi, pretium ut lacinia in.	https://www.google.com/maps/place/Fake+Location/@55.667788,22.334455,12z	Donec sollicitudin molestie malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur aliquet quam id dui posuere blandit. Nulla porttitor accumsan tincidunt. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
+12	12	Pellentesque in ipsum id orci porta dapibus.	https://www.google.com/maps/place/Fake+Location/@55.667788,22.334455,12z	Donec sollicitudin molestie malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur aliquet quam id dui posuere blandit. Nulla porttitor accumsan tincidunt. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
+13	13	Curabitur non nulla sit amet nisl tempus convallis.	https://www.google.com/maps/place/Fake+Location/@78.112233,66.554433,18z	Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie malesuada. Curabitur aliquet quam id dui posuere blandit. Nulla porttitor accumsan tincidunt. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
+14	14	Mauris blandit aliquet elit, eget tincidunt nibh.	https://www.google.com/maps/place/Fake+Location/@88.223344,44.332211,15z	Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Pellentesque in ipsum id orci porta dapibus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Donec sollicitudin molestie malesuada.
+15	15	Nulla quis lorem ut libero malesuada feugiat.	https://www.google.com/maps/place/Fake+Location/@99.334455,11.223344,14z	Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit.
+16	16	Proin eget tortor risus.	https://www.google.com/maps/place/Fake+Location/@10.556677,99.445566,17z	Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla porttitor accumsan tincidunt.
+17	17	Vivamus suscipit tortor eget felis porttitor.	https://www.google.com/maps/place/Fake+Location/@21.667788,33.556677,16z	Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Donec sollicitudin molestie malesuada.
+18	18	Quisque velit nisi, pretium ut lacinia in.	https://www.google.com/maps/place/Fake+Location/@32.778899,44.667788,12z	Curabitur aliquet quam id dui posuere blandit. Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
+19	19	Nulla quis lorem ut libero malesuada feugiat.	https://www.google.com/maps/place/Fake+Location/@43.889900,55.778899,19z	Donec sollicitudin molestie malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur aliquet quam id dui posuere blandit. Nulla porttitor accumsan tincidunt.
+20	20	Vestibulum ac diam sit amet quam vehicula.	https://www.google.com/maps/place/Fake+Location/@54.001122,66.889900,20z	Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam quis risus eget urna mollis ornare vel eu leo. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nulla vitae elit libero, a pharetra augue.
 \.
 
 
@@ -1790,6 +1813,11 @@ COPY public.orders (id, event_id, customer, rating, status, created_at) FROM std
 --
 
 COPY public.todos (id, itinerary_id, sequence, name) FROM stdin;
+1	1	1	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+2	1	2	Curabitur aliquet quam id dui posuere blandit.
+3	1	3	Vivamus magna justo, lacinia eget consectetur sed.
+4	1	4	Sed porttitor lectus nibh.
+5	1	5	Donec sollicitudin molestie malesuada.
 \.
 
 
@@ -1818,14 +1846,14 @@ SELECT pg_catalog.setval('public.events_id_seq', 29, true);
 -- Name: itineraries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: paul
 --
 
-SELECT pg_catalog.setval('public.itineraries_id_seq', 1, false);
+SELECT pg_catalog.setval('public.itineraries_id_seq', 3, true);
 
 
 --
 -- Name: locations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: paul
 --
 
-SELECT pg_catalog.setval('public.locations_id_seq', 1, false);
+SELECT pg_catalog.setval('public.locations_id_seq', 20, true);
 
 
 --
@@ -1839,7 +1867,7 @@ SELECT pg_catalog.setval('public.orders_id_seq', 1281, true);
 -- Name: todos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: paul
 --
 
-SELECT pg_catalog.setval('public.todos_id_seq', 1, false);
+SELECT pg_catalog.setval('public.todos_id_seq', 5, true);
 
 
 --

@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "24257b92-0725-4c4b-b8ba-addd5d58a0c9",
+		"name": "20241115tugas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39501286",
+		"_collection_link": "https://lumoshive-8617.postman.co/workspace/Lumoshive-Workspace~3742b519-d511-4017-b9e7-1abd32fcec7f/collection/39501286-24257b92-0725-4c4b-b8ba-addd5d58a0c9?action=share&source=collection_link&creator=39501286"
+	},
+	"item": [
+		{
+			"name": "events",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "events/{id}",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "bookings",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "location",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "plan",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
