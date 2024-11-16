@@ -17,23 +17,15 @@ type Error struct {
 
 func Validate(input interface{}) interface{} {
 	validate := validator.New()
-	validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
-		name := strings.SplitN(fld.Tag.Get("json"), ",", 2)[0]
-		if name == "-" {
-			return ""
-		}
-		return name
-	})
+	validate.RegisterTagNameFunc(JsonFieldName)
 	err := validate.Struct(input)
 
 	if err != nil {
 		var errorBags []Error
-		validationErrors, ok := err.(validator.ValidationErrors)
-		if ok {
+		validationErrors, hasValidationError := err.(validator.ValidationErrors)
+		if hasValidationError {
 			for _, inputError := range validationErrors {
-				fieldError := initError(inputError)
-				fieldError.ShouldHaveJsonParam(input)
-				errorBags = append(errorBags, fieldError)
+				errorBags = append(errorBags, initError(inputError).ShouldHaveJsonParam(input))
 			}
 			return errorBags
 		}
@@ -42,20 +34,28 @@ func Validate(input interface{}) interface{} {
 	return nil
 }
 
-func (err *Error) ShouldHaveJsonParam(input interface{}) *Error {
+func (err *Error) ShouldHaveJsonParam(input interface{}) Error {
 	if err.Tag == "eqfield" {
 		if param, validationHasParam := reflect.TypeOf(input).FieldByName(err.Param); validationHasParam {
 			err.Param = param.Tag.Get("json")
 		}
 	}
-	return err
+	return *err
 }
 
-func initError(inputError validator.FieldError) Error {
-	return Error{
+func initError(inputError validator.FieldError) *Error {
+	return &Error{
 		Field: inputError.Field(),
 		Tag:   inputError.Tag(),
 		Value: inputError.Value(),
 		Param: inputError.Param(),
 	}
+}
+
+func JsonFieldName(fld reflect.StructField) string {
+	name := strings.SplitN(fld.Tag.Get("json"), ",", 2)[0]
+	if name == "-" {
+		return ""
+	}
+	return name
 }
